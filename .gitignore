@@ -1,0 +1,6 @@
+now.json
+next.config.js
+node_modules
+.next
+dist
+README.md
