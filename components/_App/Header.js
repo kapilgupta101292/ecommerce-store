@@ -11,7 +11,7 @@ Router.onRouterChangeError = () => NProgress.done();
 function Header() {
 
   const router = useRouter();
-  const user = true;
+  const user = false;
 
   function isActive(route) {
     console.log(route);
