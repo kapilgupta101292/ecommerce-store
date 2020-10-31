@@ -2,7 +2,6 @@ const { Item, Label } = require('semantic-ui-react');
 import AddProductToCart from './AddProductToCart'
 
 function ProductSummary({name, mediaUrl, _id, price, sku, user}) {
-  console.log('summary'+ user);
   return (
     <Item.Group>
       <Item>

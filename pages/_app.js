@@ -9,7 +9,6 @@ import Router from 'next/router';
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const {token} = parseCookies(ctx);
-    console.log(token);
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
@@ -26,7 +25,6 @@ class MyApp extends App {
           const payload = { headers: {Authorization: token}}
           const url = `${baseUrl}/api/account`
           const response = await axios.get(url, payload);
-          console.log('in _app' + response.data);
           const user = response.data;
           const isRoot = user.role === 'root';
           const isAdmin = user.role === 'admin';
@@ -53,7 +51,6 @@ class MyApp extends App {
 
   syncLogout = event => {
     if (event.key === 'logout') {
-      console.log('Logged out from storage');
       Router.push('/login');
     }
   }

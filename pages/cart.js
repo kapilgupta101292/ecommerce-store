@@ -25,7 +25,6 @@ function Cart({ user, products }) {
     }
 
     async function handleCheckout(paymentData) {
-        console.log(paymentData);
         try {
             setLoading(true);
             const url = `${baseUrl}/api/checkout`

@@ -9,7 +9,6 @@ import catchErrors from '../../utils/catchErrors'
 
 function AddProductToCart({user, productId}) {
 
-  console.log('add product to cart' + user);
 
   const [quantity, setQuantity] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
