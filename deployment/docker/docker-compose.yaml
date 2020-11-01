@@ -1,0 +1,23 @@
+version: '3'
+services:
+  frontend:
+    image: kapilguptansit/ecommerce-store-frontend:latest
+    environment:
+      CLOUDINARY_URL: $CLOUDINARY_URL
+      API_PORT: $API_PORT
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  backend:
+    image: kapilguptansit/ecommerce-store-backend:latest
+    environment:
+      MONGO_SRV: $MONGO_SRV
+      JWT_SECRET: $JWT_SECRET
+      CLOUDINARY_URL: $CLOUDINARY_URL
+      STRIPE_SECRET_KEY: $STRIPE_SECRET_KEY
+      PORT: $PORT
+    restart: always
+    ports:
+      - 8080:8080

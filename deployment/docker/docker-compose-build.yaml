@@ -1,0 +1,10 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ../../backend
+    image: kapilguptansit/ecommerce-store-backend
+  frontend:
+    build:
+      context: ../../frontend
+    image: kapilguptansit/ecommerce-store-frontend
