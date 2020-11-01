@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  CLOUDINARY_URL: __INSERT_CLOUDINARY_URL
+  PORT: __INSERT_PORT_HERE
+  API_PORT: __INSERT_API_PORT_HERE
+  metadata:
+  name: env-config

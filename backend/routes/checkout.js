@@ -1,12 +1,13 @@
 const Cart = require('../models/Cart')
 const Order = require('../models/Order')
-const stripe = require('stripe')
-const uuid = require('uuidv4')
+const Stripe = require('stripe')
+const { uuid } = require('uuidv4')
 const jwt = require('jsonwebtoken')
 const express = require('express')
 
 
 const router = express.Router()
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post('/', async (req, res) => {
      const {paymentData } = req.body;

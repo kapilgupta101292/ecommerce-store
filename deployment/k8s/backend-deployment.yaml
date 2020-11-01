@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: backend
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: backend
+  template:
+    metadata:
+      labels:
+        service: backend
+    spec:
+      containers:
+        - image: kapilguptansit/ecommerce-store-backend
+          name: backend
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '250m'
+            limits:
+              memory: '1024Mi'
+              cpu: '500m'
+          env:
+            - name: CLOUDINARY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: CLOUDINARY_URL
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: PORT
+            - name: MONGO_SRV
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: MONGO_SRV
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: JWT_SECRET
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: STRIPE_SECRET_KEY
+      restartPolicy: Always
