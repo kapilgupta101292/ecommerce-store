@@ -6,9 +6,11 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const isEmail = require('validator/lib/isEmail')
 const isLength = require('validator/lib/isLength')
+const logger = require('../logging')
 
 router.post('/', async (req, res) => {
- const {name, email, password} = req.body;
+    logger.debug('SIGNUP: Start of POST end point');
+    const { name, email, password } = req.body;
     try {
 
         // 1) Validate name / email / password
@@ -37,9 +39,10 @@ router.post('/', async (req, res) => {
         // 6) send back the token.
         res.status(201).json(token);
     } catch(error) {
-        console.error(error);
+        logger.error(`SIGNUP: Error occured ${error}`);
         res.status(500).send("Error signup user. Please try again later.")
     }
+    logger.debug('SIGNUP: End of POST end point');
 });
 
 module.exports = router;

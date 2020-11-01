@@ -1,10 +1,12 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const express = require('express');
-const bcrypt = require('bcrypt');
-const router = express.Router();
+const User = require('../models/User')
+const jwt = require('jsonwebtoken')
+const express = require('express')
+const bcrypt = require('bcrypt')
+const router = express.Router()
+const logger = require('../logging')
 
 router.post('/', async (req, res) => {
+    logger.debug('LOGIN: Start of POST end point');
      const {email, password} = req.body;
      try {
         // 1) check to see if a user exists with the provided email
@@ -25,9 +27,11 @@ router.post('/', async (req, res) => {
             res.status(401).send("Passwords do not match")
         }        
      } catch (error) {
-        console.error(error)
+        logger.error(`LOGIN: Error occured ${error}`);
         res.status(500).send('Error loggin in');
      }
+    logger.debug('LOGIN: End of POST end point');
+    
 });
 
 module.exports = router;

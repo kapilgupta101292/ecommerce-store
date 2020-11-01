@@ -4,7 +4,6 @@ services:
     image: kapilguptansit/ecommerce-store-frontend:latest
     environment:
       CLOUDINARY_URL: $CLOUDINARY_URL
-      API_PORT: $API_PORT
     restart: always
     ports:
       - 3000:3000
@@ -17,6 +16,10 @@ services:
       JWT_SECRET: $JWT_SECRET
       CLOUDINARY_URL: $CLOUDINARY_URL
       STRIPE_SECRET_KEY: $STRIPE_SECRET_KEY
+      CLOUDWATCH_GROUP_NAME: $CLOUDWATCH_GROUP_NAME
+      CLOUDWATCH_ACCESS_KEY: $CLOUDWATCH_ACCESS_KEY
+      CLOUDWATCH_SECRET_ACCESS_KEY: $CLOUDWATCH_SECRET_ACCESS_KEY
+      CLOUDWATCH_REGION: $CLOUDWATCH_REGION
       PORT: $PORT
     restart: always
     ports:

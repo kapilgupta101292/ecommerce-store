@@ -4,12 +4,15 @@ const Stripe = require('stripe')
 const { uuid } = require('uuidv4')
 const jwt = require('jsonwebtoken')
 const express = require('express')
+const logger = require('../logging')
 
 
 const router = express.Router()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post('/', async (req, res) => {
+     logger.debug('CHECKOUT: Start of GET end point');
+
      const {paymentData } = req.body;
     try {
         // 1) Verify and get the user cart from the token
@@ -64,9 +67,10 @@ router.post('/', async (req, res) => {
         // 9) Send back success (200) response 
         res.status(200).send("Checkout successful");
     } catch (error) {
-        console.error(error);
+        logger.error(`CHECKOUT: Error occured ${error}`);
         res.status(500).send('Error processing charge');
     }
+    logger.debug('CHECKOUT: End of GET end point');
 })
 
 function calculateCartTotal(products) {

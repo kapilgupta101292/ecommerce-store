@@ -1,10 +1,13 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const express = require('express');
-const router = express.Router();
+const User = require('../models/User')
+const jwt = require('jsonwebtoken')
+const express = require('express')
+const logger = require('../logging')
+const router = express.Router()
 
 router.get('/', async (req, res) => {
+    logger.debug('ACCOUNT: Start of GET end point');
     if (!("authorization" in req.headers)) {
+        logger.error('ACCOUNT: No Authorization token');
         return res.status(401).send("No authorization token");
     }
     try {
@@ -16,19 +19,24 @@ router.get('/', async (req, res) => {
             res.status(404).send("User not found");
         }
         
-    } catch(error) {
+    } catch (error) {
+        logger.error(`ACCOUNT: Error occured ${error}`);
         res.status(403).send("Invalid token");
     }
+    logger.debug('ACCOUNT: End of GET end point');
 });
 
 router.put('/', async (req, res) => {
+    logger.debug('ACCOUNT: Start of PUT end point');
     try {
         const {_id, role} = req.body;
         await User.findOneAndUpdate({_id}, {role});
         res.status(203).send('User updated successfully');
-    } catch(error) {
+    } catch (error) {
+        logger.error(`ACCOUNT: Error occured ${error}`);
         res.status(403).send("Invalid token");
     }
+    logger.debug('ACCOUNT: End of PUT end point');
 });
 
 module.exports = router;

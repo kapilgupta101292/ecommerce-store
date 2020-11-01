@@ -1,17 +1,20 @@
 const Product = require('../models/Product')
 const express = require('express')
-const winston = require('winston')
+const logger = require('../logging')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
+    logger.debug('PRODUCT: Start of GET end point');
     const { _id } = req.query;
-    winston.info(`_id: ${_id}`)
+    logger.info(`_id: ${_id}`)
     const product = await Product.findOne({ _id });
     res.status(200).json(product); 
+    logger.debug('PRODUCT: End of GET end point');
 });
 
 router.post('/', async (req, res) => {
-      const {name, price, description, mediaUrl} = req.body
+    logger.debug('PRODUCT: Start of POST end point');
+    const {name, price, description, mediaUrl} = req.body
      try {
         if (!name || !price || !description || !mediaUrl) {
             return res.status(422).send("Product missing one or more fields");
@@ -24,9 +27,10 @@ router.post('/', async (req, res) => {
         }).save();
         res.status(201).json(product);
     } catch(error) {
-        console.error(error);
+        logger.error(`PRODUCT: Error occured ${error}`);
         res.status(500).send("Server error in creating product");
     }
+    logger.debug('PRODUCT: End of POST end point');
 })
 
 router.delete('/', async (req, res) => {

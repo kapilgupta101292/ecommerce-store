@@ -11,10 +11,9 @@ const products = require('./routes/products');
 const signup = require('./routes/signup');
 const users = require('./routes/users');
 const mongoose = require('mongoose');
-const winston = require('winston');
+const logger = require('./logging');
 const dotenv = require('dotenv');
 dotenv.config();
-require('./logging')();
 
 
 app.use(express.json());
@@ -36,7 +35,7 @@ mongoose
         useFindAndModify: false,
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }).then(winston.info('Connected to MongoDB...'));
+    }).then(logger.info('Connected to MongoDB...'));
 
 app.listen(process.env.PORT);
-winston.info(`Server listening to Port ${process.env.PORT}`);
+logger.info(`Server listening to Port ${process.env.PORT}`);

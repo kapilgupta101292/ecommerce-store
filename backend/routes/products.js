@@ -1,8 +1,10 @@
 const Product = require('../models/Product')
 const express = require('express')
+const logger = require('../logging')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
+    logger.debug('PRODUCTS: Start of GET end point');
     const { page, size} = req.query
     // Convert the query string values to numbers
     const pageNum = Number(page);
@@ -17,6 +19,7 @@ router.get('/', async (req, res) => {
         products = await Product.find().skip(skips).limit(pageSize);
     }
     res.status(200).json({products, totalPages})
+    logger.debug('PRODUCTS: End of GET end point');
 });
 
 module.exports = router;
