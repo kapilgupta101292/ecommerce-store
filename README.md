@@ -31,23 +31,133 @@
 
    ```
 
-5. `docker-compose -f docker-compose-build.yaml build --parallel`
-6. `docker-compose up`
+5. Run the docker compose build
+
+```docker
+docker-compose -f docker-compose-build.yaml build --parallel
+```
+
+6. Run docker compose up command to start the containers.
+
+```docker
+docker-compose up
+```
 
 ## Running in Production
 
-update the next.config.js file with the loadbalanced backend service url.
+1. Create a EKS Cluster in the AWS Console with name ecommerce-app.
+   ![Create EKS Cluster](screenshots/readme/readme-1.png)
+
+2. Configure EKS Cluster using AWS cli and check as shown in image below.
 
 ```js
+  aws eks --region us-east-1 update-kubeconfig --name ecommerce-app
+```
+
+![Configure EKS Cluster](screenshots/readme/readme-2.png)
+
+3. Check the cluster info using below command as shown in image above.
+
+```js
+  kubectl cluster-info
+```
+
+4. Add a nodegroup to the EKS cluster using the "Add Node Group" section in the "Compute" tab
+
+- ![Add Node Group 1](screenshots/readme/readme-3.png)
+- ![Add Node Group 2](screenshots/readme/readme-4.png)
+- ![Add Node Group 3](screenshots/readme/readme-5.png)
+- ![Add Node Group 4](screenshots/readme/readme-6.png)
+
+5. Refresh the AWS page to check the node group is created.
+6. Once node group is created check the status of nodes in cluster using following command
+
+```js
+  kubectl get nodes
+```
+
+![Get Nodes](screenshots/readme/readme-7.png)
+
+7. Create k8 Secrets and ConfigMap
+
+```js
+  kubectl apply -f env-secret.yaml
+  kubectl apply -f env-configmap.yaml
+```
+
+![Create Secrets and ConfigMap](screenshots/readme/readme-8.png)
+
+8. Apply Backend Deployment and Service yaml
+
+```js
+  kubectl apply -f backend-deployment.yaml
+  kubectl apply -f backend-service-lb.yaml
+```
+
+![Create Backend Containers](screenshots/readme/readme-9.png)
+
+9. Check the status of Backend pods
+
+```js
+  kubectl get pods
+```
+
+![Check Backend Pods](screenshots/readme/readme-10.png)
+
+10. Check the status of Backend services
+
+```js
+  kubectl get services
+```
+
+![Check Backend Pods](screenshots/readme/readme-11.png)
+
+11. Verify the backend api's are working fine using the loadbalancer host
+
+![Check Backend APIs](screenshots/readme/readme-12.png)
+
+12. Update the next.config.js file in the config with the loadbalanced backend service url.
+
+````js
 // must restart server whenever you make changes in next.config
 module.exports = {
   serverRuntimeConfig: {
     // Will only be available on the server side
-    apiUrl: `http://ae7e333918b51428fa4b32cd9bfe81f3-1580552253.us-east-1.elb.amazonaws.com:8080`,
+    apiUrl: `http://a3827adb053c34a168d8755893c9e93e-283059086.us-east-1.elb.amazonaws.com:8080`,
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    apiUrl: `http://ae7e333918b51428fa4b32cd9bfe81f3-1580552253.us-east-1.elb.amazonaws.com:8080`,
+    apiUrl: `http://a3827adb053c34a168d8755893c9e93e-283059086.us-east-1.elb.amazonaws.com:8080`,
   },
 };
+
+13. Commit the changes to trigger the new Frontend build and image creation.
+
+12. Apply Frontend Deployment and Service yaml
+
+```js
+  kubectl apply -f frontend-deployment.yaml
+  kubectl apply -f frontend-service-lb.yaml
+````
+
+![Create Backend Containers](screenshots/readme/readme-9.png)
+
+9. Check the status of Backend pods
+
+```js
+  kubectl get pods
+```
+
+![Check Backend Pods](screenshots/readme/readme-10.png)
+
+10. Check the status of Backend services
+
+```js
+  kubectl get services
+```
+
+![Check Backend Pods](screenshots/readme/readme-11.png)
+
+```
+
 ```

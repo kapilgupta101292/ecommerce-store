@@ -36,6 +36,16 @@ spec:
                 configMapKeyRef:
                   name: env-config
                   key: PORT
+            - name: CLOUDWATCH_GROUP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: CLOUDWATCH_GROUP_NAME
+            - name: CLOUDWATCH_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: CLOUDWATCH_REGION
             - name: MONGO_SRV
               valueFrom:
                 secretKeyRef:
@@ -51,4 +61,14 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: STRIPE_SECRET_KEY
+            - name: CLOUDWATCH_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: CLOUDWATCH_ACCESS_KEY
+            - name: CLOUDWATCH_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: CLOUDWATCH_SECRET_ACCESS_KEY
       restartPolicy: Always
