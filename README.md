@@ -118,7 +118,7 @@ docker-compose up
 
 12. Update the next.config.js file in the config with the loadbalanced backend service url.
 
-````js
+```js
 // must restart server whenever you make changes in next.config
 module.exports = {
   serverRuntimeConfig: {
@@ -131,14 +131,16 @@ module.exports = {
   },
 };
 
+```
+
 13. Commit the changes to trigger the new Frontend build and image creation.
 
-12. Apply Frontend Deployment and Service yaml
+14. Apply Frontend Deployment and Service yaml
 
 ```js
   kubectl apply -f frontend-deployment.yaml
   kubectl apply -f frontend-service-lb.yaml
-````
+```
 
 ![Create Backend Containers](screenshots/readme/readme-9.png)
 
