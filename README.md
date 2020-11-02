@@ -130,36 +130,40 @@ module.exports = {
     apiUrl: `http://a3827adb053c34a168d8755893c9e93e-283059086.us-east-1.elb.amazonaws.com:8080`,
   },
 };
-
 ```
 
 13. Commit the changes to trigger the new Frontend build and image creation.
 
-14. Apply Frontend Deployment and Service yaml
+![Travis Build](screenshots/readme/readme-13.png)
+
+14. Check the Docker hub has the latest images.
+
+![Docker Hub latest images](screenshots/readme/readme-14.png) 14. Apply Frontend Deployment and Service yaml
+
+15. Create Deployment and Service for the frontend server.
 
 ```js
   kubectl apply -f frontend-deployment.yaml
   kubectl apply -f frontend-service-lb.yaml
 ```
 
-![Create Backend Containers](screenshots/readme/readme-9.png)
+![Create Frontend Containers](screenshots/readme/readme-15.png)
 
-9. Check the status of Backend pods
+16. Check the status of Frontend pods
 
 ```js
   kubectl get pods
 ```
 
-![Check Backend Pods](screenshots/readme/readme-10.png)
+![Check Frontend Pods](screenshots/readme/readme-17.png)
 
-10. Check the status of Backend services
+17. Check the status of Frontend services
 
 ```js
   kubectl get services
 ```
 
-![Check Backend Pods](screenshots/readme/readme-11.png)
+![Check Frontend Services](screenshots/readme/readme-18.png)
 
-```
-
-```
+18. Check whether you are able to access the application in the browser using the frontend service url.
+    ![Check Application](screenshots/readme/readme-16.png)
