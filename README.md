@@ -167,3 +167,6 @@ module.exports = {
 
 18. Check whether you are able to access the application in the browser using the frontend service url.
     ![Check Application](screenshots/readme/readme-16.png)
+19. Verify Logs
+    ![Verify Logs](screenshots/readme/readme-20.png)
+    ![Verify Logs](screenshots/readme/readme-21.png)

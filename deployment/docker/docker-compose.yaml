@@ -11,8 +11,6 @@ services:
       - backend
   backend:
     image: kapilguptansit/ecommerce-store-backend:latest
-    volumes:
-      - $HOME/.aws:/root/.aws
     environment:
       MONGO_SRV: $MONGO_SRV
       JWT_SECRET: $JWT_SECRET

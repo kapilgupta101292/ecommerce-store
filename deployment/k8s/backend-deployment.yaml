@@ -71,12 +71,4 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: CLOUDWATCH_SECRET_ACCESS_KEY
-        volumeMounts:
-        - name: aws-secret
-          mountPath: "/root/.aws/"
-          readOnly: true        
       restartPolicy: Always
-      volumes:
-      - name: aws-secret
-        secret:
-          secretName: aws-secret   
